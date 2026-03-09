@@ -1,0 +1,34 @@
+const readline = require("readline");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let notas = [];
+
+function perguntarNota(numero) {
+  rl.question(`Digite a ${numero}ª nota: `, (valor) => {
+    notas.push(parseFloat(valor)); // aceita números quebrados
+
+    if (notas.length < 3) {
+      perguntarNota(notas.length + 1);
+    } else {
+      let media = (notas[0] + notas[1] + notas[2]) / 3;
+
+      console.log("Média:", media.toFixed(2));
+
+      if (media >= 7) {
+        console.log("✅ Aprovado");
+      } else if (media >= 6) {
+        console.log("⚖ Na média");
+      } else {
+        console.log("❌ Reprovado");
+      }
+
+      rl.close();
+    }
+  });
+}
+
+perguntarNota(1);
