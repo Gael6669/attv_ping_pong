@@ -1,0 +1,58 @@
+# attv_ping_pong
+
+const readline = require("readline");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Criando objeto do jogo
+const jogo = {
+  jogador1: { nome: "Alice", cor: "Azul", pontos: 0 },
+  jogador2: { nome: "Bruno", cor: "Vermelho", pontos: 0 }
+};
+
+// Função para mostrar placar
+function mostrarPlacar() {
+  console.log("\n--- Placar Atual ---");
+  console.log(`${jogo.jogador1.nome} (${jogo.jogador1.cor}):
+${jogo.jogador1.pontos} pontos`);
+  console.log(`${jogo.jogador2.nome} (${jogo.jogador2.cor}):
+${jogo.jogador2.pontos} pontos`);
+}
+
+// Função para mostrar menu
+function mostrarMenu() {
+  console.log("\nEscolha uma opção:");
+  console.log("1 - Aumentar ponto do Jogador 1");
+  console.log("2 - Aumentar ponto do Jogador 2");
+  console.log("3 - Encerrar jogo");
+}
+
+// Loop do jogo
+function iniciarJogo() {
+  mostrarPlacar();
+  mostrarMenu();
+
+  rl.question("Digite sua opção: ", (opcao) => {
+    if (opcao === "1") {
+      jogo.jogador1.pontos++;
+      iniciarJogo();
+    } else if (opcao === "2") {
+      jogo.jogador2.pontos++;
+      iniciarJogo();
+    } else if (opcao === "3") {
+      console.log("\n--- Jogo Encerrado ---");
+      mostrarPlacar();
+      rl.close();
+    } else {
+      console.log("Opção inválida, tente novamente.");
+      iniciarJogo();
+    }
+  });
+}
+
+// Início
+console.log("🏓 Bem-vindo ao jogo de Ping Pong!");
+iniciarJogo();
